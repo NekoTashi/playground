@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  sftpgo:
+    image: "drakkan/sftpgo:v2.6.2-alpine-slim"
+    ports:
+      - "8080:8080"
+      - "2022:2022"
+    restart: always
+    environment:
+      - "SFTPGO_GRACE_TIME=32"
+      - "SFTPGO_COMMON__IDLE_TIMEOUT=2"
+      - "SFTPGO_COMMON__MAX_PER_HOST_CONNECTIONS=-1"
+      - "SFTPGO_SFTPD__MAX_AUTH_TRIES=50"
+    volumes:
+      - "./sftpgo-dir/data:/srv/sftpgo/data"
+      - "./sftpgo-dir/backups:/srv/sftpgo/backups"
+      - "./sftpgo-dir/config:/var/lib/sftpgo"
